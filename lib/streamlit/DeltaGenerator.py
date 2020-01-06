@@ -836,8 +836,7 @@ class DeltaGenerator(object):
 
         Parameters
         ----------
-        data : pandas.DataFrame, pandas.Styler, numpy.ndarray, Iterable, dict,
-            or None
+        data : pandas.DataFrame, pandas.Styler, numpy.ndarray, Iterable, dict, or None
             The data to display.
 
             If 'data' is a pandas.Styler, it will be used to style its
@@ -2570,8 +2569,7 @@ class DeltaGenerator(object):
 
         Parameters
         ----------
-        data : pandas.DataFrame, pandas.Styler, numpy.ndarray, Iterable, dict,
-            or None
+        data : pandas.DataFrame, pandas.Styler, numpy.ndarray, Iterable, dict, or None
             The table data.
 
         Example
