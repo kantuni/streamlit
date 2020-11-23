@@ -1,7 +1,7 @@
-const webpack = require("webpack")
-const HardSourceWebpackPlugin = require("hard-source-webpack-plugin")
-
 module.exports = {
+  babel: {
+    plugins: ["@babel/plugin-proposal-export-namespace-from"],
+  },
   devServer: {
     headers: {
       // This allows static files request other static files in development mode.
@@ -9,7 +9,7 @@ module.exports = {
     },
   },
   jest: {
-    configure: jestConfig => {
+    configure: (jestConfig) => {
       jestConfig.setupFiles = ["jest-canvas-mock"]
 
       return jestConfig
@@ -19,13 +19,8 @@ module.exports = {
     configure: (webpackConfig, { env, paths }) => {
       webpackConfig.resolve.mainFields = ["main", "module"]
 
-      // HardSourceWebpackPlugin adds aggressive build caching
-      // to speed up our slow builds.
-      // https://github.com/mzgoddard/hard-source-webpack-plugin
-      webpackConfig.plugins.unshift(new HardSourceWebpackPlugin())
-
       const minimizerIndex = webpackConfig.optimization.minimizer.findIndex(
-        item => item.options.terserOptions
+        (item) => item.options.terserOptions
       )
 
       // ⚠️ If you use Circle CI or any other environment that doesn't
@@ -40,17 +35,5 @@ module.exports = {
 
       return webpackConfig
     },
-    plugins: [
-      // Hide critical dependency warnings from Webpack, as CircleCI treats them as errors.
-      // https://medium.com/tomincode/hiding-critical-dependency-warnings-from-webpack-c76ccdb1f6c1
-      // Remove after updating bokehjs to 2.0.0
-      // https://github.com/bokeh/bokeh/issues/9594#issuecomment-577227353
-      new webpack.ContextReplacementPlugin(/\/bokehjs\//, data => {
-        for (let i in data.dependencies) {
-          delete data.dependencies[i].critical
-        }
-        return data
-      }),
-    ],
   },
 }

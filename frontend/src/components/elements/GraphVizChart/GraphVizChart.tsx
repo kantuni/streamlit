@@ -17,6 +17,7 @@
 
 import React, { ReactElement, useEffect } from "react"
 
+// @ts-ignore
 import { select } from "d3"
 import { graphviz } from "d3-graphviz"
 import { logError } from "lib/log"
